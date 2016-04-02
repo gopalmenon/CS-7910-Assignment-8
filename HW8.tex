@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+
+\usepackage{sectsty} % Allows customizing section commands
+\usepackage[top=5em]{geometry}
+\allsectionsfont{\centering \normalfont\scshape} % Make all sections centered, the default font and small caps
+
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{5pt} % Customize the height of the header
+
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{chngcntr}
+\usepackage{csquotes}
+\usepackage{flexisym}
+\usepackage{algorithm,algpseudocode}
+\usepackage{tikz}
+
+\usepackage{verbatim}
+\usetikzlibrary{arrows,shapes}
+
+\newcommand\Mycomb[2][n]{\prescript{#1\mkern-0.5mu}{}C_{#2}}
+
+\counterwithout{figure}{section}
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	
+\normalfont \normalsize 
+\textsc{Utah State University, Computer Science Department} \\ [25pt] % Your university, school and/or department name(s)
+\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+\huge CS 7910 Computational Complexity\\Assignment 8 \\ % The assignment title
+\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+}
+
+\author{Gopal Menon} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+\begin{enumerate}
+\item In this exercise, we consider the \textit{knapsack packing} problem of minimizing the number of knapsacks to pack all items. The problem is formally defined as follows.
+
+We are given n items of sizes $a_1, a_2, . . . , a_n$. We are provided with many knapsacks and the size of each knapsack is $M$, and it holds that $a_i \leq M$ for any $1 \leq i \leq n$. The goal is to use a minimum number of knapsacks to pack all items such that the total size of all items in the same knapsack is at most $M$ and each item is packed in one and only one knapsack.
+
+The problem is equivalent to partitioning the numbers  $a_1, a_2, . . . , a_n$. into a minimum number of subsets such that the total sum of the numbers in each subset is at most $M$. As an application, consider the scenario when you are moving. You have many boxes of the same size (for example, you can buy them from Walmart) and you want to use a minimum number of these boxes to pack all your stuff.
+
+Consider the following polynomial-time algorithm to solve this problem. We consider the items in the order of $a_1, a_2, . . . , a_n$. Starting with an empty knapsack, we keep packing the next item into the knapsack as long as the knapsack is not \enquote{overloaded}. If it is overloaded, then we finish this knapsack and use another empty knapsack. We do this until the last item an is packed in a knapsack, and then we return all non-empty knapsacks as our solution.
+
+\begin{enumerate}
+\item \textbf{(10 points)} Prove that the decision version of the knapsack packing problem is NP-Complete. (Hint: by a reduction from the Partition problem, i.e., the one in Assignment 5)
+
+In order to show that the decision version of the knapsack problem is NP-Complete, we can reduce it from the partition problem. Let $(A)$ be an instance of the partition problem, where $A=a_1, a_2, . . . , a_n$, and the \emph{partition problem} is to decide whether $A$ can be partitioned into two subsets $A_1$ and $A_2$ (i.e., $A=A_1 \cup A_2$ and $A_1 \cap A_2 = \phi$) such that $\sum A_1 = \sum A2$. Let $(A, M, m)$ be an instance of the knapsack problem, where $A$ is the set of $n$ items as shown above, $M$ is the size of each knapsack and $m$ is the number of knapsacks. The decision knapsack problem is to decide whether given such an instance, it is possible divide the set $A$, into $M$ subsets such that the sum of each subset is at most $M$.
+
+Given a certificate of the knapsack problem, which will be the set $A$, the knapsack size $M$ and the $m$ sets, we can verify in polynomial time that the union of the $m$ sets is the set $A$, the intersection of the $m$ sets is the empty set and the sum of the items in each of the $m$ sets is at most $M$. This means that the knapsack problem is in NP.
+
+Consider a special case of the knapsack problem $(A, M, m)$ where $M=\frac{1}{2} \sum A$ and $m=2$. We can see the following:
+
+\begin{enumerate}
+
+\item We can clearly construct the special instance of the knapsack from from the partition problem in $O(n)$ time where $n = \left | A \right |$. So the construction can be done in polynomial time.
+
+\item Consider the case where the instance of the partition problem is true, where it is possible to partition the set $A$ into two parts so that the sum of each part is equal. That means that we can pack all the $n$ items into $2$ knapsacks of size $M= \frac{1}{2} \sum A$. Consider the reverse case where we know that we can pack the items in set $A$ into $2$ knapsacks of size $M=\frac{1}{2} \sum A$. This must mean that the partition problem instance is true.
+
+\end{enumerate}
+
+From i and ii above, we can conclude that the knapsack problem is in NP-Hard since it can be reduced in polynomial time from a known NP-Complete problem. Given that the knapsack problem is also in NP, we can conclude that the knapsack problem in in NP-Complete.
+
+\item \textbf{(5 points)} Give an actual example where the above algorithm does not find an optimal solution for the knapsack packing problem.
+
+\item \textbf{(15 points)} Prove that the approximation ratio of the above algorithm is 2.
+
+\item \textbf{(10 points)} Give an actual example for which $C$ is strictly larger than $\frac{3}{2} \cdot OPT$ , where $C$ is the number of knapsacks used by the above algorithm and $OPT$ is the number of knapsacks used in an optimal solution.
+
+\end{enumerate}
+
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
