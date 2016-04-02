@@ -111,6 +111,8 @@ From i and ii above, we can conclude that the knapsack problem is in NP-Hard sin
 
 \item \textbf{(5 points)} Give an actual example where the above algorithm does not find an optimal solution for the knapsack packing problem.
 
+Consider the case where the set $A$ has items of sizes $\{2, 4, 3\}$ and the knapsack size $M=5$. According to the algorithm, the items will be distributed among three knapsacks as follows $\{2\}, \{4\}$ and $\{3\}$. The optimal solution is where the items are distributed among two knapsacks as follows $\{2,3\}$ and $\{4\}$.
+
 \item \textbf{(15 points)} Prove that the approximation ratio of the above algorithm is 2.
 
 \item \textbf{(10 points)} Give an actual example for which $C$ is strictly larger than $\frac{3}{2} \cdot OPT$ , where $C$ is the number of knapsacks used by the above algorithm and $OPT$ is the number of knapsacks used in an optimal solution.
