@@ -115,11 +115,13 @@ Consider the case where the set $A$ has items of sizes $\{2, 4, 3\}$ and the kna
 
 \item \textbf{(15 points)} Prove that the approximation ratio of the above algorithm is 2.
 
-We can consider the worst case scenario for the above algorithm. Let the size of the knapsack be $M$ and let the collection of items be consist of $x$ elements of size $\frac{M}{x}$ and $x-1$ elements of size $M$. The elements are ordered such that every other element is of size $\frac{M}{x}$ followed by an element of size $M$, except the last element of size $\frac{M}{x}$. The first element will be of size $\frac{M}{x}$. So the ordering of element sizes will be of the form $\{\frac{M}{x}, M, \frac{M}{x}, M,...,\frac{M}{x}\}$. 
+We can consider the worst case scenario for the above algorithm. Let the size of the knapsack be $M$ and let the collection of items be $x$ elements of size $\frac{M}{x}$ and $x-1$ elements of size $M$. The elements are ordered such that every other element is of size $\frac{M}{x}$ followed by an element of size $M$, except the last element of size $\frac{M}{x}$. The first element will be of size $\frac{M}{x}$. So the ordering of element sizes will be of the form $\{\frac{M}{x}, M, \frac{M}{x}, M,...,\frac{M}{x}\}$. 
 
 When the knapsack packing algorithm is run, the knapsack packing will be of the form $\{\frac{M}{x}, M, \frac{M}{x}, M,...,\frac{M}{x}\}$. So there will be $2x-1$ knapsacks used. The optimum algorithm will put the $x$ elements of size $\frac{M}{x}$ into one knapsack. The other $x-1$ elements of size $M$ will be put into $x-1$ knapsacks. So the optimum algorithm will fill $x$ knapsacks. Since we considered the worst case scenario for the algorithm, the approximation ratio will be limited by $\frac{2x-1}{x}$. This ratio is limited by a factor of $2$ and so the approximation ratio of the algorithm is $2$.
 
 \item \textbf{(10 points)} Give an actual example for which $C$ is strictly larger than $\frac{3}{2} \cdot OPT$ , where $C$ is the number of knapsacks used by the above algorithm and $OPT$ is the number of knapsacks used in an optimal solution.
+
+Consider the worst case example given above and use the value of $x=4$. So the approximation ration in this case will be $\frac{7}{4}$ or $1.75$. So $C$ in this case will be larger than $\frac{3}{2} \cdot OPT$. In fact for the minimum value of $x$ as $2$, the ratio will be $1.5$ and the ratio will rise for higher values of $x$, but will be limited by $2$.
 
 \end{enumerate}
 
